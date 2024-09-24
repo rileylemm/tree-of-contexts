@@ -35,11 +35,11 @@ const Index = () => {
     };
   };
 
-  const handleNewBranch = () => {
+  const handleNewBranch = (branchName) => {
     if (currentBranch) {
       const newBranch = {
         id: Date.now(),
-        content: `Branch from ${currentBranch.content}`,
+        content: branchName,
         children: [],
         messages: []
       };

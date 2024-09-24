@@ -3,15 +3,21 @@ import { Send, GitBranch } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import MessageBubble from './MessageBubble';
+import NewBranchDialog from './NewBranchDialog';
 
 const ChatInterface = ({ currentBranch, onSendMessage, onNewBranch }) => {
   const [message, setMessage] = useState('');
+  const [isNewBranchDialogOpen, setIsNewBranchDialogOpen] = useState(false);
 
   const handleSendMessage = () => {
     if (message.trim()) {
       onSendMessage(message);
       setMessage('');
     }
+  };
+
+  const handleNewBranch = (branchName) => {
+    onNewBranch(branchName);
   };
 
   return (
@@ -23,7 +29,7 @@ const ChatInterface = ({ currentBranch, onSendMessage, onNewBranch }) => {
       </div>
       <div className="border-t p-4">
         <div className="flex space-x-2 mb-2">
-          <Button onClick={onNewBranch} variant="outline">
+          <Button onClick={() => setIsNewBranchDialogOpen(true)} variant="outline">
             <GitBranch className="h-4 w-4 mr-2" />
             New Branch
           </Button>
@@ -40,6 +46,11 @@ const ChatInterface = ({ currentBranch, onSendMessage, onNewBranch }) => {
           </Button>
         </div>
       </div>
+      <NewBranchDialog
+        isOpen={isNewBranchDialogOpen}
+        onClose={() => setIsNewBranchDialogOpen(false)}
+        onCreateBranch={handleNewBranch}
+      />
     </div>
   );
 };

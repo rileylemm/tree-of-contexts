@@ -17,7 +17,7 @@ const ChatInterface = ({ currentBranch, onSendMessage, onNewBranch }) => {
 
       try {
         const response = await generateResponse(message);  // Call GPT API
-        const gptMessage = { role: 'assistant', content: response.choices[0].text };  // For completion model  // Extract GPT response
+        const gptMessage = { role: 'assistant', content: response.choices[0].message.content };  // For completion model  // Extract GPT response
         onSendMessage(gptMessage);  // Display GPT response
       } catch (error) {
         console.error('Error generating response:', error);

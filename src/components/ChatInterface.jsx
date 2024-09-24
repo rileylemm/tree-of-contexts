@@ -1,4 +1,4 @@
-import { generateResponse } from "../api/gptApi";
+import { generateResponse } from '../api/gptApi';
 import React, { useState } from 'react';
 import { Send, GitBranch } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -13,9 +13,10 @@ const ChatInterface = ({ currentBranch, onSendMessage, onNewBranch }) => {
   const handleSendMessage = async () => {
     if (message.trim()) {
       try {
-        const response = await generateResponse(message);
-        onSendMessage(response);
-        setMessage('');
+        const response = await generateResponse(message); // Call GPT API
+        const gptMessage = response.choices[0].message.content; // Extract GPT's response content
+        onSendMessage(gptMessage); // Send GPT's response to parent component
+        setMessage(''); // Clear the input after sending
       } catch (error) {
         console.error('Error generating response:', error);
       }

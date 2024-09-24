@@ -35,6 +35,34 @@ const Index = () => {
     };
   };
 
+  const handleNewBranch = () => {
+    if (currentBranch) {
+      const newBranch = {
+        id: Date.now(),
+        content: `Branch from ${currentBranch.content}`,
+        children: [],
+        messages: []
+      };
+
+      const updatedTrees = trees.map(tree => addNewBranchToTree(tree, currentBranch.id, newBranch));
+      setTrees(updatedTrees);
+      setCurrentBranch(newBranch);
+    }
+  };
+
+  const addNewBranchToTree = (node, targetId, newBranch) => {
+    if (node.id === targetId) {
+      return {
+        ...node,
+        children: [...node.children, newBranch]
+      };
+    }
+    return {
+      ...node,
+      children: node.children.map(child => addNewBranchToTree(child, targetId, newBranch))
+    };
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Sidebar trees={trees} onSelectBranch={handleSelectBranch} />
@@ -46,7 +74,11 @@ const Index = () => {
         <div className="w-2/3 p-4">
           <h2 className="text-2xl font-bold mb-4">Chat Interface</h2>
           {currentBranch ? (
-            <ChatInterface currentBranch={currentBranch} onSendMessage={handleSendMessage} />
+            <ChatInterface
+              currentBranch={currentBranch}
+              onSendMessage={handleSendMessage}
+              onNewBranch={handleNewBranch}
+            />
           ) : (
             <p>Select a branch to start chatting</p>
           )}

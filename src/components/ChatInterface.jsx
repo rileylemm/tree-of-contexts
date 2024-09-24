@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Send } from 'lucide-react';
+import { Send, GitBranch } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import MessageBubble from './MessageBubble';
 
-const ChatInterface = ({ currentBranch, onSendMessage }) => {
+const ChatInterface = ({ currentBranch, onSendMessage, onNewBranch }) => {
   const [message, setMessage] = useState('');
 
   const handleSendMessage = () => {
@@ -22,6 +22,12 @@ const ChatInterface = ({ currentBranch, onSendMessage }) => {
         ))}
       </div>
       <div className="border-t p-4">
+        <div className="flex space-x-2 mb-2">
+          <Button onClick={onNewBranch} variant="outline">
+            <GitBranch className="h-4 w-4 mr-2" />
+            New Branch
+          </Button>
+        </div>
         <div className="flex space-x-2">
           <Input
             value={message}

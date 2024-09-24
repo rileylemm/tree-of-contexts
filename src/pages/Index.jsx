@@ -37,7 +37,7 @@ const Index = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <Sidebar trees={trees} />
+      <Sidebar trees={trees} onSelectBranch={handleSelectBranch} />
       <div className="flex-1 flex">
         <div className="w-1/3 p-4 border-r">
           <h2 className="text-2xl font-bold mb-4">Conversation Tree</h2>

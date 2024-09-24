@@ -3,8 +3,7 @@ import ConversationNode from './ConversationNode';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const TreeView = () => {
-  const [trees, setTrees] = useState([]);
+const TreeView = ({ trees, setTrees }) => {
   const [newSeed, setNewSeed] = useState('');
 
   const addNewSeed = () => {
@@ -34,7 +33,7 @@ const TreeView = () => {
   };
 
   return (
-    <div className="p-4">
+    <div>
       <div className="mb-4">
         <Input
           type="text"

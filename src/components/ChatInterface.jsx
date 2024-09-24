@@ -35,7 +35,7 @@ const ChatInterface = ({ currentBranch, onSendMessage, onNewBranch }) => {
     <div className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {currentBranch.messages.map((msg, index) => (
-          <MessageBubble key={index} message={msg} />
+           <MessageBubble key={index} message={msg.content} />
         ))}
       </div>
       <div className="border-t p-4">

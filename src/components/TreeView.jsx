@@ -3,13 +3,15 @@ import ConversationNode from './ConversationNode';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const TreeView = ({ trees = [], setTrees }) => {
+const TreeView = ({ trees = [], setTrees, onSelectBranch }) => {
   const [newSeed, setNewSeed] = useState('');
 
   const addNewSeed = () => {
     if (newSeed.trim()) {
-      setTrees([...trees, { id: Date.now(), content: newSeed, children: [] }]);
+      const newTree = { id: Date.now(), content: newSeed, children: [], messages: [] };
+      setTrees([...trees, newTree]);
       setNewSeed('');
+      onSelectBranch(newTree);
     }
   };
 
@@ -24,7 +26,10 @@ const TreeView = ({ trees = [], setTrees }) => {
 
   const addNodeToTree = (node, targetId, newContent) => {
     if (node.id === targetId) {
-      return { ...node, children: [...node.children, { id: Date.now(), content: newContent, children: [] }] };
+      const newNode = { id: Date.now(), content: newContent, children: [], messages: [] };
+      const updatedNode = { ...node, children: [...node.children, newNode] };
+      onSelectBranch(newNode);
+      return updatedNode;
     }
     return {
       ...node,
@@ -49,6 +54,7 @@ const TreeView = ({ trees = [], setTrees }) => {
           key={tree.id}
           node={tree}
           addResponse={(nodeId, response) => addResponse(tree.id, nodeId, response)}
+          onSelectBranch={onSelectBranch}
         />
       ))}
     </div>

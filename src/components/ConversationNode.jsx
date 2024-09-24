@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MessageSquare, GitBranch } from 'lucide-react';
 
-const ConversationNode = ({ node, addResponse }) => {
+const ConversationNode = ({ node, addResponse, onSelectBranch }) => {
   const [newResponse, setNewResponse] = useState('');
   const [isExpanded, setIsExpanded] = useState(true);
 
@@ -18,7 +18,7 @@ const ConversationNode = ({ node, addResponse }) => {
     <div className="ml-4 mt-2 border-l-2 border-gray-200 pl-4">
       <div className="flex items-center">
         <MessageSquare className="mr-2 h-4 w-4" />
-        <p className="font-medium">{node.content}</p>
+        <p className="font-medium cursor-pointer" onClick={() => onSelectBranch(node)}>{node.content}</p>
         <Button
           variant="ghost"
           size="sm"
@@ -48,6 +48,7 @@ const ConversationNode = ({ node, addResponse }) => {
               key={child.id}
               node={child}
               addResponse={addResponse}
+              onSelectBranch={onSelectBranch}
             />
           ))}
         </>

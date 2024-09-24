@@ -12,14 +12,18 @@ const ChatInterface = ({ currentBranch, onSendMessage, onNewBranch }) => {
 
   const handleSendMessage = async () => {
     if (message.trim()) {
+      const userMessage = { role: 'user', content: message }; // Create user message
+      onSendMessage(userMessage);  // Display user message
+
       try {
-        const response = await generateResponse(message); // Call GPT API
-        const gptMessage = response.choices[0].message.content; // Extract GPT's response content
-        onSendMessage(gptMessage); // Send GPT's response to parent component
-        setMessage(''); // Clear the input after sending
+        const response = await generateResponse(message);  // Call GPT API
+        const gptMessage = { role: 'assistant', content: response.choices[0].text };  // For completion model  // Extract GPT response
+        onSendMessage(gptMessage);  // Display GPT response
       } catch (error) {
         console.error('Error generating response:', error);
       }
+
+      setMessage('');  // Clear input field
     }
   };
 

@@ -3,7 +3,7 @@ import ConversationNode from './ConversationNode';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const TreeView = ({ trees, setTrees }) => {
+const TreeView = ({ trees = [], setTrees }) => {
   const [newSeed, setNewSeed] = useState('');
 
   const addNewSeed = () => {

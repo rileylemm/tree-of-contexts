@@ -1,7 +1,7 @@
 import React from 'react';
 import { Scroll, GitBranch } from 'lucide-react';
 
-const Sidebar = ({ trees }) => {
+const Sidebar = ({ trees = [] }) => {
   return (
     <div className="w-64 bg-gray-100 p-4 h-screen overflow-y-auto">
       <h2 className="text-xl font-bold mb-4">Conversation Tree</h2>

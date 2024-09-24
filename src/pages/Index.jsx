@@ -63,9 +63,31 @@ const Index = () => {
     };
   };
 
+  const handleRenameBranch = (branchId, newName) => {
+    const updatedTrees = trees.map(tree => renameBranchInTree(tree, branchId, newName));
+    setTrees(updatedTrees);
+    if (currentBranch && currentBranch.id === branchId) {
+      setCurrentBranch(prevBranch => ({ ...prevBranch, content: newName }));
+    }
+  };
+
+  const renameBranchInTree = (node, targetId, newName) => {
+    if (node.id === targetId) {
+      return { ...node, content: newName };
+    }
+    return {
+      ...node,
+      children: node.children.map(child => renameBranchInTree(child, targetId, newName))
+    };
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <Sidebar trees={trees} onSelectBranch={handleSelectBranch} />
+      <Sidebar
+        trees={trees}
+        onSelectBranch={handleSelectBranch}
+        onRenameBranch={handleRenameBranch}
+      />
       <div className="flex-1 flex">
         <div className="w-1/3 p-4 border-r">
           <h2 className="text-2xl font-bold mb-4">Conversation Tree</h2>
